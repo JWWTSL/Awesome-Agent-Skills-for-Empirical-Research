@@ -5,13 +5,13 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Maintained by CoPaper.AI](https://img.shields.io/badge/Maintained%20by-CoPaper.AI-blue)](https://copaper.ai)
 
-**实证研究全流程 AI Agent Skills 大全**
+**实证研究全流程 AI Agent Skills 大全 — 收录 119 个 GitHub 仓库 / 覆盖 23,000+ Skills**
 
-> A curated, opinionated list of AI Agent Skills for empirical research in economics, social science, and public policy — organized by research workflow, from topic selection to journal submission.
+> A curated, opinionated list of **119 GitHub repositories** and **23,000+ AI Agent Skills** for empirical research in economics, political science, sociology, psychology, public health, education, management, finance, and public policy — organized by research workflow, from topic selection to journal submission.
 
 2026 年，实证研究的工作方式正在被重新定义。[CoPaper.AI](https://copaper.ai) 已经做到 **20 分钟完成一篇主流期刊级别的实证论文**——从数据导入、描述性统计、因果推断模型、稳健性检验到结果表格一步到位。这背后的秘密不是更强的模型，而是 **Skills**：把资深研究者的方法论经验编码成结构化工作流，让 AI 知道"一个完整的 DID 分析应该包含哪些步骤"，而不是每次都等你一步步提醒。
 
-这个仓库，是我们在构建 CoPaper.AI 过程中整理的一份 **Agent Skills 全景图**。我们把散落在 GitHub、社区和学术圈的上百个 Skills 按实证研究流程梳理归类，方便你按需取用。
+这个仓库，是我们在构建 CoPaper.AI 过程中整理的一份 **Agent Skills 全景图**。我们把散落在 GitHub、社区和学术圈的数百个 Skills 仓库和上万个 Skills 按实证研究流程梳理归类，方便你按需取用。
 
 > **[CoPaper.AI](https://copaper.ai)** 内置了 **20 个经济学方法论 Skills**（DID、IV、RDD、PSM、DML 等完整分析流程），支持一句话触发、多代理协作、结果自动输出。想要开箱即用？直接试试：[copaper.ai](https://copaper.ai)
 
@@ -87,6 +87,8 @@ Skill 就是解决这个问题的：它是给 AI 的**方法论操作手册**。
 | **Claude Scholar** | 选题 → 投稿 | 25+ Skills 覆盖研究全生命周期，集成 Zotero MCP | [GitHub](https://github.com/Galaxy-Dawn/claude-scholar) |
 | **K-Dense Scientific Skills** | 跨学科科学研究 | 140+ Skills，28+ 科学数据库，55+ Python 包 | [GitHub](https://github.com/K-Dense-AI/claude-scientific-skills) |
 | **AI-Research-SKILLs** | AI/ML 研究 | 22 个类别、87 个技能，完整研究周期 | [GitHub](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
+| **OpenClaw Medical Skills** | 生物医学/公共健康 | **869 个 Skills**，流行病学、临床研究、药物安全、生物统计 | [GitHub](https://github.com/FreedomIntelligence/OpenClaw-Medical-Skills) |
+| **Agent Laboratory** | 全自主研究 | 文献综述 → 实验 → 报告，研究成本降低 84% | [GitHub](https://github.com/SamuelSchmidgall/AgentLaboratory) |
 
 ---
 
@@ -113,6 +115,48 @@ Skill 就是解决这个问题的：它是给 AI 的**方法论操作手册**。
 | **[CoPaper.AI](https://copaper.ai)** | **20 个方法论 Skills**（OLS、DID、交错DID、IV、RDD、PSM、SCM、DML、因果森林等），多代理架构（Supervisor + 4 子代理），智能路由，结果自动输出 | 经济学实证研究全流程 |
 | [claesbackman/AI-research-feedback](https://github.com/claesbackman/AI-research-feedback) | 2 代理经济学论文预审：因果过度声称检测、识别策略评估；支持 AER/QJE/JPE/Econometrica/REStud；6 代理基金评审 | 论文投稿前自审、基金申请 |
 | [fuhaoda/stats-paper-writing-agent-skills](https://github.com/fuhaoda/stats-paper-writing-agent-skills) | LaTeX 统计论文写作，前端草稿生成 | 统计学、计量经济学论文 |
+| [dylantmoore/stata-skill](https://github.com/dylantmoore/stata-skill) | Stata 全覆盖：语法、数据管理、计量经济学、因果推断、图形、Mata、20+ 社区包 | Stata 用户 |
+| [SepineTam/stata-mcp](https://github.com/SepineTam/stata-mcp) | LLM 通过 MCP 直接操作 Stata 回归，"从回归猴进化为因果思考者" | Stata 计量分析 |
+
+### 金融与投资研究
+
+| 套件 | 核心特色 | 适用场景 |
+|------|---------|---------|
+| [anthropics/financial-services-plugins](https://github.com/anthropics/financial-services-plugins) | Anthropic 官方金融服务插件：投资银行、股权研究、私募、财富管理 | 金融服务全流程 |
+| [OctagonAI/skills](https://github.com/OctagonAI/skills) | Octagon 代理式金融研究 Claude Skills | 机构级金融研究 |
+| [tradermonty/claude-trading-skills](https://github.com/tradermonty/claude-trading-skills) | 股票投资与交易：市场分析、技术图表、经济日历、筛选器、策略开发 | 量化交易研究 |
+| [himself65/finance-skills](https://github.com/himself65/finance-skills) | Agent Skills 开放标准，盈利前后分析、共识预估、分析师情绪 | 金融分析 |
+| [quant-sentiment-ai/claude-equity-research](https://github.com/quant-sentiment-ai/claude-equity-research) | 机构级股权研究插件：基本面分析、技术指标、风险评估 | 股权研究 |
+
+### 教育与公共健康
+
+| 套件 | 核心特色 | 适用场景 |
+|------|---------|---------|
+| [GarethManning/claude-education-skills](https://github.com/GarethManning/claude-education-skills) | 循证教育 Claude Skills，专为教师和代理编排设计 | 教育研究、教学设计 |
+| [FreedomIntelligence/OpenClaw-Medical-Skills](https://github.com/FreedomIntelligence/OpenClaw-Medical-Skills) | **869 个**医学 AI Skills：流行病学、公共健康监测、临床研究、药物安全、生物统计 | 公共健康、医学研究 |
+
+### 治理、合规与法律
+
+| 套件 | 核心特色 | 适用场景 |
+|------|---------|---------|
+| [Sushegaad/Claude-Skills-Governance-Risk-and-Compliance](https://github.com/Sushegaad/Claude-Skills-Governance-Risk-and-Compliance) | GRC Skills：ISO 27001、SOC 2、GDPR、HIPAA 等合规指导（94% vs 基准 72%） | 合规研究、政策分析 |
+| [zubair-trabzada/ai-legal-claude](https://github.com/zubair-trabzada/ai-legal-claude) | 法律助手：合同审查、风险分析、NDA 生成、合规审计，14 Skills + 5 代理 | 法律经济学、规制研究 |
+| [evolsb/claude-legal-skill](https://github.com/evolsb/claude-legal-skill) | AI 合同审查：CUAD 风险检测、市场基准、律师级红线标注 | 法经济学研究 |
+
+### 营销与消费者行为
+
+| 套件 | 核心特色 | 适用场景 |
+|------|---------|---------|
+| [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | CRO、文案、SEO、分析和增长工程 | 市场营销研究 |
+| [zubair-trabzada/ai-marketing-claude](https://github.com/zubair-trabzada/ai-marketing-claude) | 15 Skills + 并行子代理：网站审计、文案、邮件序列、竞争情报 | 消费者行为分析 |
+| [ericosiu/ai-marketing-skills](https://github.com/ericosiu/ai-marketing-skills) | 增长实验、销售管线、内容运营、SEO、财务自动化 | 营销策略研究 |
+
+### 产品管理与组织行为
+
+| 套件 | 核心特色 | 适用场景 |
+|------|---------|---------|
+| [phuryn/pm-skills](https://github.com/phuryn/pm-skills) | 100+ 代理 Skills：发现到战略、执行、发布、增长，65 PM Skills + 36 链式工作流 | 产品管理、组织研究 |
+| [mastepanoski/claude-skills](https://github.com/mastepanoski/claude-skills) | UX/UI 评估（Nielsen 启发式、WCAG）、AI 治理（NIST AI RMF、ISO 42001） | 用户体验研究 |
 
 ### 通用 Agent 能力增强
 
@@ -121,6 +165,9 @@ Skill 就是解决这个问题的：它是给 AI 的**方法论操作手册**。
 | [lyndonkl/claude](https://github.com/lyndonkl/claude) | - | 85 skills + 6 编排代理，含因果推断、贝叶斯推理、实验设计、多准则分析 |
 | [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills) | ~5,200 | 220+ skills + 298 CLI 脚本，含金融分析和数据处理 |
 | [rohitg00/awesome-claude-code-toolkit](https://github.com/rohitg00/awesome-claude-code-toolkit) | - | 135 agents 含数据科学家代理（EDA、DID、RDD），35 skills，42 commands |
+| [jeremylongshore/claude-code-plugins-plus-skills](https://github.com/jeremylongshore/claude-code-plugins-plus-skills) | - | 340 plugins + **1,367 agent skills**，CCPI 包管理器 |
+| [affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code) | - | Skills、直觉、记忆、安全、研究优先开发框架 |
+| [posit-dev/skills](https://github.com/posit-dev/skills) | - | Posit 官方：modern-r-tidyverse、predictive-modeling、quarto-authoring、shiny-bslib |
 
 ---
 
@@ -147,6 +194,29 @@ Skill 就是解决这个问题的：它是给 AI 的**方法论操作手册**。
 | [HungHsunHan/claude-code-data-science-team](https://github.com/HungHsunHan/claude-code-data-science-team) | 社区 | Claude Code 多代理数据科学团队，自动清洗 → 建模 → 生成可执行 Notebook |
 | [HKUDS/AI-Researcher](https://github.com/HKUDS/AI-Researcher) | 港大 (NeurIPS 2025 Spotlight) | 全自主研究管线：文献综述 → 假设生成 → 算法实现 → 论文撰写 |
 | [wanshuiyin/Auto-claude-code-research-in-sleep (ARIS)](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | 社区 | 隔夜自主研究，跨模型审阅循环（Claude + 外部 LLM 做批评者） |
+| [SamuelSchmidgall/AgentLaboratory](https://github.com/SamuelSchmidgall/AgentLaboratory) | 学术 (ICLR) | 端到端自主研究：文献综述 → 实验 → 报告，集成 arXiv/Hugging Face/LaTeX，研究成本降低 84% |
+| [SakanaAI/AI-Scientist-v2](https://github.com/SakanaAI/AI-Scientist-v2) | Sakana AI | 全自动科学发现：假设生成 → 实验 → 论文，首篇 AI 论文通过同行评审 |
+| [assafelovic/gpt-researcher](https://github.com/assafelovic/gpt-researcher) | 社区 | 自主深度研究代理，支持任意 LLM 提供商 |
+| [LitLLM/LitLLM](https://github.com/LitLLM/LitLLM) | 学术 | AI 文献综述助手：关键词提取 + 多策略检索 + 重排序归属，基于 RAG |
+| [pedrohcgs/claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow) | Emory 大学 | 学术 LaTeX/Beamer + R 模板，多代理审查 + 质量门控，15+ 研究组采用 |
+| [hugosantanna/clo-author](https://github.com/hugosantanna/clo-author) | 社区 | 将 Sant'Anna 工作流从课件扩展到全社科实证研究发表 |
+
+### 学术数据 MCP 服务器
+
+| 系统 | 核心特色 |
+|------|---------|
+| [xingyulu23/Academix](https://github.com/xingyulu23/Academix) | 聚合 OpenAlex + DBLP + Semantic Scholar + arXiv + CrossRef 为统一学术研究接口 |
+| [Eclipse-Cj/paper-distill-mcp](https://github.com/Eclipse-Cj/paper-distill-mcp) | 11 源并行搜索，4 维加权排名（相关性/时效性/影响力/新颖性） |
+| [oksure/openalex-research-mcp](https://github.com/oksure/openalex-research-mcp) | OpenAlex API：搜索 2.4 亿+ 学术作品、引用分析、趋势追踪、协作网络 |
+| [zongmin-yu/semantic-scholar-fastmcp-mcp-server](https://github.com/zongmin-yu/semantic-scholar-fastmcp-mcp-server) | Semantic Scholar API 完整访问：论文、作者、引用网络 |
+| [openags/paper-search-mcp](https://github.com/openags/paper-search-mcp) | 搜索 20+ 来源：arXiv、PubMed、bioRxiv、Google Scholar、SSRN、Unpaywall 等 |
+| [aringadre76/mcp-for-research](https://github.com/aringadre76/mcp-for-research) | 整合 PubMed + Google Scholar + ArXiv + JSTOR，NPM 发布 |
+| [blazickjp/arxiv-mcp-server](https://github.com/blazickjp/arxiv-mcp-server) | arXiv 论文搜索与分析 MCP |
+| [lzinga/us-gov-open-data-mcp](https://github.com/lzinga/us-gov-open-data-mcp) | 40+ 美国政府 API（FRED/Census/CDC/FDA/FEC 等），250+ 工具 |
+| [stefanoamorelli/fred-mcp-server](https://github.com/stefanoamorelli/fred-mcp-server) | FRED 80 万+ 经济时间序列直接访问 |
+| [llnOrmll/world-bank-data-mcp](https://github.com/llnormll/world-bank-data-mcp) | 世界银行 Data360，1000+ 经济社会指标、200+ 国家 |
+| [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) | Zotero 文献库与 AI 助手连接：论文评审、摘要、引用分析、PDF 标注 |
+| [datagouv/datagouv-mcp](https://github.com/datagouv/datagouv-mcp) | 法国国家开放数据平台 MCP |
 
 ---
 
@@ -158,11 +228,15 @@ Skill 就是解决这个问题的：它是给 AI 的**方法论操作手册**。
 |------|------|------|
 | [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | 1,000+ skills | 13,700 stars，官方团队和社区精选 |
 | [sickn33/antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills) | 1,340+ skills | 28,000 stars，CLI 一键安装 `npx antigravity-awesome-skills` |
+| [VoltAgent/awesome-openclaw-skills](https://github.com/VoltAgent/awesome-openclaw-skills) | **5,400+ skills** | 从 OpenClaw 官方注册表（ClawHub 13,729 Skills）筛选分类 |
+| [jeremylongshore/claude-code-plugins-plus-skills](https://github.com/jeremylongshore/claude-code-plugins-plus-skills) | 1,367 skills | 340 plugins + CCPI 包管理器 |
 | [skills.sh](https://skills.sh/) | 在线市场 | 可搜索的 Skill 市场 |
-| [ClawHub (clawhub.com)](https://clawhub.com) | 在线市场 | 开源 AI 技能市场，一行命令安装 |
+| [ClawHub (clawhub.com)](https://clawhub.com) | **13,729 skills** | 开源 AI 技能市场，一行命令安装 |
 | [Agent Skills 标准](https://agentskills.io/) | 规范文档 | Agent Skills 通用规范 |
 | [Anthropic 官方 Skills](https://github.com/anthropics/skills) | 官方 | PDF/DOCX/XLSX/PPTX 文档处理 |
+| [Anthropic 官方插件市场](https://github.com/anthropics/claude-plugins-official) | 官方 | Anthropic 管理的高质量 Claude Code 插件目录 |
 | [Anthropic Knowledge Work Plugins](https://github.com/anthropics/knowledge-work-plugins) | 官方 | 11 个插件含 Data Plugin（SQL 查询、数据探索） |
+| [Anthropic Financial Services Plugins](https://github.com/anthropics/financial-services-plugins) | 官方 | 金融服务插件：投行、股研、私募、财管 |
 
 ---
 
@@ -177,6 +251,8 @@ Skill 就是解决这个问题的：它是给 AI 的**方法论操作手册**。
 ### 学术讲座与课程
 
 - [AI Agents for Economics Research](https://cepr.org/) — Aniket Panjwani, CEPR/VoxDev, 2026.03
+- [Claude Code & Cowork for Academic Research — A Practical Guide](https://cornwl.github.io/files/claude-academic-guide.html) — 经济学家和社科研究者实操指南，2026.02
+- [Building Claude Code Workflow for Economics Scholars](https://zhiyuanryanchen.github.io/claude-code-workflow.html) — 经济学研究者的 Claude Code 工作流构建
 
 ### 因果推断教材
 
@@ -184,16 +260,27 @@ Skill 就是解决这个问题的：它是给 AI 的**方法论操作手册**。
 - [Statistical Tools for Causal Inference](https://chabefer.github.io/STCI/) — 开源教材
 - [Causal Inference and Machine Learning Book](https://www.causalmlbook.com/)
 
-### 综述论文
+### 综述论文与 Awesome Lists
 
 - [A Survey of Data Agents](https://github.com/HKUSTDial/awesome-data-agents) — 数据代理综述（HKUST）
 - [From AI for Science to Agentic Science](https://github.com/AgenticScience/Awesome-Agent-Scientists) — arXiv:2508.14111
 - [From Automation to Autonomy](https://github.com/HKUST-KnowComp/Awesome-LLM-Scientific-Discovery) — LLM 科学发现综述（EMNLP 2025）
+- [Awesome Agents for Science](https://github.com/OSU-NLP-Group/awesome-agents4science) — LLM 和代理在科学研发中的论文列表
+- [Awesome AI for Science](https://github.com/ai-boost/awesome-ai-for-science) — AI 加速科学发现工具、论文、数据集
+- [Awesome AI for Economists](https://github.com/hanlulong/awesome-ai-for-economists) — 经济学 AI 工具、库和资源列表（OpenEcon 团队）
+- [Awesome Econ AI Stuff](https://github.com/meleantonio/awesome-econ-ai-stuff) — 经济学家 AI Skills 集合，遵循 SKILL.md 标准
+- [AI for Grant Writing](https://github.com/eseckel/ai-for-grant-writing) — LLM 辅助基金申请资源策展列表
+- [Awesome AI Scientist Papers](https://github.com/openags/Awesome-AI-Scientist-Papers) — AI 科学家 / 机器人科学家论文集
+- [FreedomIntelligence/OpenClaw-Medical-Skills](https://github.com/FreedomIntelligence/OpenClaw-Medical-Skills) — **869 个**医学 AI Skills，覆盖流行病学、公共健康、生物统计
 
 ### 社区与参考来源
 
 - [Awesome Claude Skills](https://github.com/travisvn/awesome-claude-skills) — 社区精选
+- [Awesome Claude Skills (ComposioHQ)](https://github.com/ComposioHQ/awesome-claude-skills) — 策展 Claude Skills 列表
+- [Awesome Claude Skills (BehiSecc)](https://github.com/BehiSecc/awesome-claude-skills) — 策展 Claude Skills 列表
+- [Awesome Claude Code](https://github.com/hesreallyhim/awesome-claude-code) — Skills、Hooks、斜杠命令、代理编排器
 - [Reddit r/ClaudeCode](https://www.reddit.com/r/ClaudeCode/)
+- [Anthropic 官方 Claude Code Skills Cookbook](https://github.com/anthropics/claude-cookbooks/blob/main/skills/notebooks/02_skills_financial_applications.ipynb) — 金融应用 Skills 教程
 
 ---
 
@@ -202,8 +289,11 @@ Skill 就是解决这个问题的：它是给 AI 的**方法论操作手册**。
 欢迎贡献！请阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 了解如何提交新的 Skill 推荐。
 
 我们特别欢迎：
-- 经济学、政治学、社会学、公共管理等社会科学领域的专用 Skills
+- 经济学、政治学、社会学、心理学、教育学、公共管理、公共健康等社会科学领域的专用 Skills
 - 因果推断方法的新 Skill 实现
+- 金融、管理学、市场营销、法经济学等商科领域的 Skills
+- 文献综述、基金申请、研究提案等通用学术 Skills
+- MCP 服务器（学术数据库、政府数据 API）
 - 中文友好的 Skills
 - 多代理协作系统的案例分享
 
