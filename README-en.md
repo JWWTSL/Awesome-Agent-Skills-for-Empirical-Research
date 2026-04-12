@@ -104,6 +104,7 @@ If you don't want to pick Skills one by one, these solutions cover the full work
 | Solution | Coverage | Highlights | Link |
 |----------|----------|------------|------|
 | **CoPaper.AI** | Data Analysis → Paper Writing | 20 built-in methodology Skills, multi-agent architecture, complete publication-quality empirical paper in 20 minutes | [copaper.ai](https://copaper.ai) |
+| **StatsPAI** | Causal Inference & Econometrics | **390+ functions, one import**, agent-native API (self-describing schemas), covers OLS/IV/DID/RDD/PSM/SCM/DML/Causal Forest/neural causal models, publication-ready output (Word/Excel/LaTeX) | [GitHub](https://github.com/brycewang-stanford/StatsPAI) |
 | **Claude Scholar** | Ideation → Submission | 25+ Skills covering the full research lifecycle, Zotero MCP integration | [GitHub](https://github.com/Galaxy-Dawn/claude-scholar) |
 | **K-Dense Scientific Skills** | Cross-disciplinary Science | 140+ Skills, 28+ scientific databases, 55+ Python packages | [GitHub](https://github.com/K-Dense-AI/claude-scientific-skills) |
 | **AI-Research-SKILLs** | AI/ML Research | 22 categories, 87 skills, full research cycle | [GitHub](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
@@ -133,6 +134,7 @@ These repositories contain multiple Skills and typically cover several research 
 | Suite | Key Features | Use Case |
 |-------|-------------|----------|
 | **[CoPaper.AI](https://copaper.ai)** | **20 methodology Skills** (OLS, DID, staggered DID, IV, RDD, PSM, SCM, DML, causal forest, etc.), multi-agent architecture (Supervisor + 4 sub-agents), smart routing, automatic output | Full empirical economics workflow |
+| **[StatsPAI](https://github.com/brycewang-stanford/StatsPAI)** 🔥 | **Agent-native econometrics Python package**: 390+ functions, self-describing API (`list_functions()` / `describe_function()` / `function_schema()`), unified `CausalResult` objects. Covers OLS, IV, panel data, DID (Callaway-Sant'Anna / Sun-Abraham / Bacon / HonestDID / continuous DID), RDD (Sharp/Fuzzy/multi-cutoff/Kink), PSM, SCM, SDID, DML, Causal Forest, Meta-Learners, TMLE, AIPW, neural causal models (TARNet/CFRNet/DragonNet), Heckman, structural estimation (BLP). **Published in JOSS, MIT license** | Full causal inference coverage, agent-driven analysis pipelines |
 | [claesbackman/AI-research-feedback](https://github.com/claesbackman/AI-research-feedback) | 2-agent economics paper pre-review: causal overclaiming detection, identification strategy assessment; supports AER/QJE/JPE/Econometrica/REStud; 6-agent grant review | Pre-submission self-review, grant applications |
 | [fuhaoda/stats-paper-writing-agent-skills](https://github.com/fuhaoda/stats-paper-writing-agent-skills) | LaTeX statistical paper writing, front-end draft generation | Statistics & econometrics papers |
 | [dylantmoore/stata-skill](https://github.com/dylantmoore/stata-skill) | Full Stata coverage: syntax, data management, econometrics, causal inference, graphics, Mata, 20+ community packages | Stata users |

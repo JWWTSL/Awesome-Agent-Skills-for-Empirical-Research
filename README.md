@@ -104,6 +104,7 @@ Skill 就是解决这个问题的：它是给 AI 的**方法论操作手册**。
 | 方案 | 覆盖范围 | 特点 | 链接 |
 |------|---------|------|------|
 | **CoPaper.AI** | 数据分析 → 论文写作 | 20 个方法论 Skills 内置，多代理架构，20 分钟完成主流期刊级别实证论文 | [copaper.ai](https://copaper.ai) |
+| **StatsPAI** | 因果推断 & 计量经济学 | **390+ 函数，一个 import**，Agent-native API（自描述 schema），覆盖 OLS/IV/DID/RDD/PSM/SCM/DML/因果森林/神经因果模型，发表级输出（Word/Excel/LaTeX） | [GitHub](https://github.com/brycewang-stanford/StatsPAI) |
 | **Claude Scholar** | 选题 → 投稿 | 25+ Skills 覆盖研究全生命周期，集成 Zotero MCP | [GitHub](https://github.com/Galaxy-Dawn/claude-scholar) |
 | **K-Dense Scientific Skills** | 跨学科科学研究 | 140+ Skills，28+ 科学数据库，55+ Python 包 | [GitHub](https://github.com/K-Dense-AI/claude-scientific-skills) |
 | **AI-Research-SKILLs** | AI/ML 研究 | 22 个类别、87 个技能，完整研究周期 | [GitHub](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
@@ -133,6 +134,7 @@ Skill 就是解决这个问题的：它是给 AI 的**方法论操作手册**。
 | 套件 | 核心特色 | 适用场景 |
 |------|---------|---------|
 | **[CoPaper.AI](https://copaper.ai)** | **20 个方法论 Skills**（OLS、DID、交错DID、IV、RDD、PSM、SCM、DML、因果森林等），多代理架构（Supervisor + 4 子代理），智能路由，结果自动输出 | 经济学实证研究全流程 |
+| **[StatsPAI](https://github.com/brycewang-stanford/StatsPAI)** 🔥 | **Agent-native 计量经济学 Python 包**：390+ 函数，自描述 API（`list_functions()` / `describe_function()` / `function_schema()`），统一 `CausalResult` 对象。覆盖 OLS、IV、面板数据、DID（Callaway-Sant'Anna / Sun-Abraham / Bacon / HonestDID / 连续DID）、RDD（Sharp/Fuzzy/多断点/Kink）、PSM、SCM、SDID、DML、因果森林、Meta-Learners、TMLE、AIPW、神经因果模型（TARNet/CFRNet/DragonNet）、Heckman、结构估计（BLP）。**JOSS 发表，MIT 协议** | 因果推断全方法覆盖，Agent 驱动分析管线 |
 | [claesbackman/AI-research-feedback](https://github.com/claesbackman/AI-research-feedback) | 2 代理经济学论文预审：因果过度声称检测、识别策略评估；支持 AER/QJE/JPE/Econometrica/REStud；6 代理基金评审 | 论文投稿前自审、基金申请 |
 | [fuhaoda/stats-paper-writing-agent-skills](https://github.com/fuhaoda/stats-paper-writing-agent-skills) | LaTeX 统计论文写作，前端草稿生成 | 统计学、计量经济学论文 |
 | [dylantmoore/stata-skill](https://github.com/dylantmoore/stata-skill) | Stata 全覆盖：语法、数据管理、计量经济学、因果推断、图形、Mata、20+ 社区包 | Stata 用户 |
