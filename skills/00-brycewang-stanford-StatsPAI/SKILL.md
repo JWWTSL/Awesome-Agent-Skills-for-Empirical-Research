@@ -1,6 +1,6 @@
 ---
 name: statspai
-description: Agent-native causal inference & econometrics toolkit for Python. 390+ functions, one import, unified API. Covers OLS, IV, DID, staggered DID, RDD, PSM, SCM, DML, Causal Forest, Meta-Learners, TMLE, neural causal models, and more. Every function returns structured result objects with self-describing schemas for LLM-driven workflows.
+description: Agent-native causal inference and econometrics toolkit for Python. 390+ functions, one import, unified API. Covers OLS, IV, DID, staggered DID, RDD, PSM, SCM, DML, Causal Forest, Meta-Learners, TMLE, neural causal models, and more. Use when the user asks about treatment effect estimation, causal analysis, regression analysis, policy evaluation, observational study methods, or any of the listed econometric methods in Python. Every function returns structured result objects with self-describing schemas for LLM-driven workflows.
 triggers:
   - implement causal inference
   - run a DID analysis
@@ -12,6 +12,10 @@ triggers:
   - causal forest
   - panel data regression
   - econometric analysis
+  - treatment effect estimation
+  - causal analysis
+  - policy evaluation
+  - observational study
   - StatsPAI
   - statspai
 ---
@@ -138,3 +142,27 @@ result.to_latex("tables/did_results.tex")
 | Staggered DID with diagnostics | ✅ CS + SA + Bacon + HonestDID | differences (partial) |
 | Neural causal models | ✅ TARNet/CFRNet/DragonNet | econml (partial) |
 | Stata users migrating to Python | ✅ Stata-equivalent function names | linearmodels (limited) |
+
+## Validation and Error Handling
+
+After running any estimation, check the result object before proceeding:
+
+```python
+result = sp.did(df, "y", "treated", "post")
+
+# Always inspect the human-readable summary first
+print(result.summary())
+
+# Inspect structured diagnostics for agent-driven logic
+if hasattr(result, "diagnostics"):
+    print(result.diagnostics)
+```
+
+Common pitfalls to guard against:
+
+- **Convergence warnings** — surfaced in `result.summary()` (check before trusting SEs).
+- **Weak instruments** for IV — require first-stage F ≥ 10 (Stock–Yogo rule of thumb); StatsPAI exposes this in `result.diagnostics["First-stage F (<endog>)"]`.
+- **Parallel trends** for DID — run an event study and verify pre-treatment coefficients are statistically indistinguishable from zero; follow up with `sp.honest_did(result)` for Rambachan–Roth sensitivity.
+- **Bandwidth sensitivity** for RDD — re-run `sp.rdrobust` at half and double the MSE-optimal bandwidth; agreement within one SE is reassuring.
+- **Missing data** — StatsPAI drops rows with missing values by default; check `result.data_info["n_obs"]` matches your expected sample size.
+- **Overlap / common support** — for matching, DML, and meta-learners, inspect propensity-score distributions before interpreting CATEs.
