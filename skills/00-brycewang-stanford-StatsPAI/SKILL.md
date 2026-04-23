@@ -92,20 +92,19 @@ sp.balance_table(df, treat="treated",
 ### Step 2 — Pre-flight checks (catch design failures before estimation)
 
 ```python
-# Panel structure
+# Panel structure — balance_panel DROPS unbalanced units (returns the balanced panel)
 balanced = sp.balance_panel(df, entity="firm_id", time="year")
-assert len(balanced) == len(df), "Unbalanced panel — decide drop vs keep before DID"
+if len(balanced) < len(df):
+    print(f"Dropped {len(df) - len(balanced)} rows from unbalanced units — "
+          "decide drop vs keep before DID.")
 
 # Treatment timing (staggered adoption?)
 df.groupby("first_treat_year").size()                    # cohort sizes
 
-# Covariate overlap (matching / DML / meta-learners)
-sp.balanceplot(df, treat="treated", covariates=["age", "edu", "income"])
-
-# Identification & data sanity battery
-report = sp.diagnose(df, y="y", treatment="treated",
-                     id="firm_id", time="year", design="did")
-print(report.summary())                                  # surfaces missing, leakage, weak ID
+# Covariate & outcome sanity (generic EDA, returns a dict report)
+report = sp.diagnose(df, y="wage", x=["age", "edu", "tenure"])
+# Full identification-level diagnostics (PT, weak IV, overlap, leverage) run
+# automatically inside sp.causal(...) in Step 5 — don't duplicate here.
 ```
 
 ### Step 3 — Estimand-first research question (the "DID vs RD vs IV?" decision)
@@ -175,14 +174,24 @@ print(w.robustness_findings)             # automated robustness battery
 ### Step 6 — Diagnostics & robustness
 
 ```python
-sp.diagnose_result(result)               # battery: PT, weak IV, overlap, leverage
+sp.diagnose_result(result)               # PT / weak-IV / overlap / leverage battery on a fitted result
 sp.honest_did(result, method="smoothness")   # Rambachan–Roth PT sensitivity (DID)
-sp.evalue(result)                        # unmeasured-confounder sensitivity (obs studies)
-sp.spec_curve(df, "wage", "training",    # multiverse over controls / subsamples
-              controls=["age", "edu", "tenure"],
-              specs=spec_grid)
-sp.bacon_decomposition(df, "wage", "training", "year")   # TWFE diagnostic for staggered DID
-sp.estat(result, ["hettest", "vif", "linktest"])        # Stata-style postestimation
+
+# E-value takes point estimate + CI (or SE), NOT a result object. Extract from .params / .conf_int().
+sp.evalue(estimate=result.params["training"],
+          ci=tuple(result.conf_int().loc["training"]),
+          measure="RR")                  # unmeasured-confounder sensitivity
+
+# Specification curve: controls must be a LIST OF LISTS (each inner list = one spec).
+sp.spec_curve(df, y="wage", x="training",
+              controls=[["age"],
+                        ["age", "edu"],
+                        ["age", "edu", "tenure"]],
+              subsets={"all": None, "manuf": df["industry"].eq("manufacturing")})
+
+sp.bacon_decomposition(df, y="wage", treat="training",
+                       time="year", id="worker_id")      # TWFE diagnostic for staggered DID
+sp.estat(result, test="all")                             # Stata-style postestimation (single test name or 'all')
 ```
 
 ---
@@ -191,75 +200,105 @@ sp.estat(result, ["hettest", "vif", "linktest"])        # Stata-style postestima
 
 ### Classical Econometrics
 ```python
-sp.regress(df, "y ~ x1 + x2", cluster="firm_id")        # OLS
-sp.ivreg(df, "y ~ x1 | z1 + z2", cluster="state")        # IV/2SLS
-sp.panel(df, "y ~ x1 + x2", entity="firm", time="year", model="fe")  # Panel FE
-sp.heckman(df, "y ~ x1", "select ~ z1 + z2")              # Heckman selection
-sp.qreg(df, "y ~ x1 + x2", quantile=0.5)                  # Quantile regression
+# regress / ivreg take FORMULA first, then data (statsmodels-style)
+sp.regress("y ~ x1 + x2", df, cluster="firm_id")                     # OLS
+sp.ivreg("y ~ (x1 ~ z1 + z2) + x2", df, cluster="state")             # IV/2SLS — syntax: (endog ~ instruments) + exog
+sp.panel(df, "y ~ x1 + x2", entity="firm", time="year", method="fe") # Panel FE (kwarg is `method=`)
+sp.heckman(df, y="wage", x=["age", "edu"],                            # Heckman selection
+           select="in_labor_force", z=["marital", "kids"])            #   y/x for outcome, select+z for selection
+sp.qreg(df, formula="y ~ x1 + x2", quantile=0.5)                      # Quantile regression
 ```
 
 ### Difference-in-Differences
 ```python
-sp.did(df, "y", "treated", "post")                         # Auto-dispatch (2x2 or staggered)
-sp.callaway_santanna(df, "y", "group", "time")             # Staggered DID (CS 2021)
-sp.sun_abraham(df, "y", "cohort", "time")                  # Interaction-weighted event study
-sp.bacon_decomposition(df, "y", "treated", "time")         # TWFE diagnostic
-sp.honest_did(result, method="smoothness")                 # Sensitivity to PT violations
-sp.continuous_did(df, "y", "dose", "time")                 # Continuous treatment
+# 2x2 DID: `time` must take exactly 2 values (a post indicator works).
+sp.did(df, y="y", treat="treated", time="post")
+
+# Staggered DID estimators REQUIRE a unit-id column `i=`.
+sp.callaway_santanna(df, y="y", g="first_treat_year", t="year", i="firm_id")   # CS 2021
+sp.sun_abraham(df, y="y", g="first_treat_year", t="year", i="firm_id")         # SA 2021 event study
+sp.bacon_decomposition(df, y="y", treat="treated", time="year", id="firm_id")  # TWFE diagnostic
+
+sp.honest_did(result, method="smoothness")                                     # PT sensitivity (RR 2023)
+sp.continuous_did(df, y="y", dose="dose", time="year", id="firm_id")           # Continuous treatment
 ```
 
 ### Regression Discontinuity
 ```python
-sp.rdrobust(df, "y", "running_var", cutoff=0)              # Sharp RD (CCT 2014)
-sp.rdrobust(df, "y", "running_var", fuzzy="treatment")     # Fuzzy RD
-sp.rddensity(df, "running_var")                            # McCrary density test
-sp.rdmc(df, "y", "running_var", cutoffs=[0, 5, 10])        # Multi-cutoff RD
-sp.rkd(df, "y", "running_var", cutoff=0)                   # Regression kink design
+# Cutoff argument is `c=` (not `cutoff=`) across rdrobust / rkd.
+sp.rdrobust(df, y="y", x="running_var", c=0)                       # Sharp RD (CCT 2014)
+sp.rdrobust(df, y="y", x="running_var", c=0, fuzzy="treatment")    # Fuzzy RD
+sp.rddensity(df, x="running_var", c=0)                             # McCrary density test
+sp.rdmc(df, y="y", x="running_var", cutoffs=[0, 5, 10])            # Multi-cutoff RD
+sp.rkd(df, y="y", x="running_var", c=0)                            # Regression kink design
 ```
 
 ### Matching & Reweighting
 ```python
-sp.match(df, "treatment", covariates, method="psm")        # Propensity score matching
-sp.match(df, "treatment", covariates, method="cem")        # Coarsened exact matching
-sp.ebalance(df, "treatment", covariates)                   # Entropy balancing
+# Signature is (data, y, treat, covariates, ...) — outcome comes BEFORE treat.
+sp.match(df, y="wage", treat="training", covariates=["age", "edu"], method="nearest")   # PSM (method='nearest' is default)
+sp.match(df, y="wage", treat="training", covariates=["age", "edu"], method="cem")       # Coarsened exact matching
+sp.ebalance(df, y="wage", treat="training", covariates=["age", "edu"])                  # Entropy balancing
 ```
 
 ### Synthetic Control
 ```python
-sp.synth(df, "y", "unit", "time", treated_unit=1, treated_period=2000)  # ADH SCM
-sp.sdid(df, "y", "unit", "time", treated_units, treated_periods)        # Synthetic DID
+# Kwarg is treatment_time (NOT treated_period); treated_unit / treatment_time are singular.
+sp.synth(df, outcome="y", unit="unit", time="time",
+         treated_unit=1, treatment_time=2000)                        # ADH SCM (method='augmented' default)
+sp.sdid(df, outcome="y", unit="unit", time="time",
+        treated_unit=1, treatment_time=2000)                         # Synthetic DID (Arkhangelsky et al. 2021)
 ```
 
 ### Machine Learning Causal Inference
 ```python
-sp.dml(df, "y", "treatment", controls, model="PLR")       # Double/Debiased ML
-sp.causal_forest(df, "y", "treatment", controls)           # Causal Forest (GRF)
-sp.metalearner(df, "y", "treatment", controls, learner="dr")  # DR-Learner
-sp.tmle(df, "y", "treatment", controls)                    # Targeted MLE
-sp.aipw(df, "y", "treatment", controls)                    # Augmented IPW
+sp.dml(df, y="wage", treat="training", covariates=["age", "edu"], model="plr")     # Double/Debiased ML
+sp.causal_forest(formula="wage ~ training | age + edu", data=df)                    # Causal Forest (GRF) — formula API
+sp.metalearner(df, y="wage", treat="training", covariates=["age", "edu"], learner="dr")  # DR-Learner
+sp.tmle(df, y="wage", treat="training", covariates=["age", "edu"])                 # Targeted MLE
+sp.aipw(df, y="wage", treat="training", covariates=["age", "edu"])                 # Augmented IPW
 ```
 
 ### Neural Causal Models
 ```python
-sp.tarnet(df, "y", "treatment", controls)                  # TARNet
-sp.cfrnet(df, "y", "treatment", controls)                  # CFRNet
-sp.dragonnet(df, "y", "treatment", controls)               # DragonNet
+sp.tarnet(df, y="wage", treat="training", covariates=["age", "edu"])       # TARNet
+sp.cfrnet(df, y="wage", treat="training", covariates=["age", "edu"])       # CFRNet
+sp.dragonnet(df, y="wage", treat="training", covariates=["age", "edu"])    # DragonNet
 ```
 
 ### Text Causal (v1.6 P1, experimental)
 ```python
-sp.causal_text.text_treatment_effect(                      # Veitch–Wang–Blei (2020)
-    df, treatment="t", outcome="y", text_embedding="emb")  # text-as-treatment via embedding adjustment
+# text_treatment_effect: pass the TEXT COLUMN name (text_col=), not pre-computed embeddings.
+# The `embedder=` argument controls how text is vectorised ('hash' default, or a callable).
+sp.causal_text.text_treatment_effect(                      # Veitch–Wang–Blei (2020) text-as-treatment
+    df, text_col="doc", outcome="y", treatment="t",
+    covariates=["age", "edu"], embedder="hash", n_components=20)
+
+# llm_annotator_correct: takes aligned pd.Series (NOT a DataFrame).
+# annotations_human must be same length as annotations_llm — mark unlabelled rows with NaN
+# if you only have human labels on a validation subset.
 sp.causal_text.llm_annotator_correct(                      # Egami–Hinck–Stewart–Wei (2024)
-    df, llm_label="t_llm", human_label="t_true",           # measurement-error correction for
-    outcome="y", validation_idx=val_ix)                    # LLM-derived treatment labels
+    annotations_llm=df["t_llm"],                           #   LLM-annotated treatment (all rows)
+    annotations_human=df["t_true"],                        #   human labels aligned; NaN where missing
+    outcome=df["y"],
+    covariates=df[["age", "edu"]],
+    method="hausman")
 ```
 
 ### Robustness & Workflow
 ```python
-sp.spec_curve(df, "y", "treatment", controls, specs)       # Specification curve
-sp.robustness_report(result)                               # Automated robustness report
-sp.subgroup_analysis(df, "y", "treatment", subgroups)      # Heterogeneity with Wald test
+# spec_curve: controls is List[List[str]] (each inner list = one spec), not a flat list.
+sp.spec_curve(df, y="wage", x="training",
+              controls=[["age"], ["age", "edu"], ["age", "edu", "tenure"]])
+
+# robustness_report: takes (data, formula, x, ...) — NOT a result object.
+sp.robustness_report(df, formula="wage ~ training + age + edu",
+                     x="training", cluster_var="firm_id")
+
+# subgroup_analysis: (data, formula, x, by={<label>: <col>}, ...). Wald test is automatic.
+sp.subgroup_analysis(df, formula="wage ~ training + age + edu",
+                     x="training", by={"gender": "female", "age_bin": "age_quartile"})
+
 result.to_latex()                                          # Export to LaTeX
 result.to_word("output.docx")                              # Export to Word
 result.cite()                                              # Auto-generate citation
@@ -285,8 +324,8 @@ info = sp.describe_function("callaway_santanna")
 # Step 3: Get JSON schema for structured calls
 schema = sp.function_schema("callaway_santanna")
 
-# Step 4: Execute and get structured results
-result = sp.callaway_santanna(df, "y", "group", "time")
+# Step 4: Execute and get structured results (callaway_santanna requires `i=` unit id)
+result = sp.callaway_santanna(df, y="y", g="first_treat_year", t="year", i="firm_id")
 print(result.summary())
 result.to_latex("tables/did_results.tex")
 ```
