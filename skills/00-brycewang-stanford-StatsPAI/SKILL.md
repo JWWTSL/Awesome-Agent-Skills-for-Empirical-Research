@@ -35,7 +35,7 @@ StatsPAI is the agent-native Python package for causal inference and applied eco
 
 **Source**: https://github.com/brycewang-stanford/StatsPAI
 **PyPI**: `pip install statspai`
-**Paper**: Published in Journal of Open Source Software (JOSS)
+**Paper**: Submitted to Journal of Open Source Software (JOSS) — under review
 
 ## Why StatsPAI for Agents?
 
